@@ -15,7 +15,7 @@ from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, av
 import seaborn as sns
 
 # Importing dfs
-df = pd.read_csv('/content/ISMDatasetSentiment.csv', encoding='ISO-8859-1')
+df = pd.read_csv('ISMDatasetSentiment.csv', encoding='ISO-8859-1')
 print(df.sample(5))
 print(df.shape)
 print(df.head())
@@ -118,8 +118,9 @@ feature_importances = pd.Series(model.feature_importances_, index=X.columns)
 feature_importances.nlargest(10).plot(kind='barh')
 plt.show()
 
-df['Sentiment_Score'] = df['Summary'].apply(get_sentiment_score)
-print(df[['Summary', 'Sentiment_Score']].sample(6))
+#Changing Datatpe of sentiment scorefrom object to float
+df['Sentiment_Score'] = pd.to_numeric(df['Sentiment_Score'], errors='coerce')
+print(df.dtypes)
 
 # Model Building
 # Assuming X contains the features and y contains the target variable (Churn)
@@ -170,6 +171,93 @@ print(classification_report(y_test, y_pred))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
+# Create a DataFrame from y_test and y_pred
+results_df = pd.DataFrame({
+    'Actual': y_test,
+    'Predicted': y_pred
+})
 
-# Evaluation and More
-# The code for this section should continue here in the same manner as above.
+# Calculate the churn and non-churn counts for actual and predicted
+comparison = pd.DataFrame({
+    'Actual Churn': results_df['Actual'].value_counts(),
+    'Predicted Churn': results_df['Predicted'].value_counts()
+})
+
+print(comparison)
+
+#Graph Plotting
+
+#1. Scatter Plot
+plt.figure(figsize=(8, 6))
+plt.scatter(range(len(y_test)), y_test, color='blue', label='Actual Churn Status', alpha=0.5)
+plt.scatter(range(len(y_test)), y_pred, color='red', label='Predicted Churn Status', alpha=0.5)
+plt.xlabel('Sample Index')
+plt.ylabel('Churn Status')
+plt.title('Actual vs. Predicted Churn Status')
+plt.legend()
+plt.show()
+
+# 2. Comparison Bar Graph
+# Plotting the comparison
+comparison.plot(kind='bar')
+plt.title('Comparison of Actual and Predicted Churn')
+plt.xlabel('Churn Status')
+plt.ylabel('Count')
+plt.xticks(ticks=[0, 1], labels=['No Churn', 'Churn'], rotation=0)  # Adjust labels according to your specific labels if different
+plt.legend()
+plt.show()
+
+#3. Confusion Chart
+
+conf_matrix = confusion_matrix(y_test, y_pred)
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap='Blues', xticklabels=['No Churn', 'Churn'], yticklabels=['No Churn', 'Churn'])
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.show()
+
+#4. ROC Curve
+# Compute ROC curve and ROC area for each class
+fpr, tpr, _ = roc_curve(y_test, model.predict_proba(X_test)[:,1])
+roc_auc = roc_auc_score(y_test, model.predict_proba(X_test)[:,1])
+
+plt.figure()
+plt.plot(fpr, tpr, label='ROC curve (area = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], 'k--')  # Random predictions curve
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic')
+plt.legend(loc="lower right")
+plt.show()
+
+#Precision-Recall Curve
+precision, recall, _ = precision_recall_curve(y_test, model.predict_proba(X_test)[:,1])
+average_precision = average_precision_score(y_test, model.predict_proba(X_test)[:,1])
+
+plt.figure()
+plt.step(recall, precision, where='post', label='Precision-Recall curve (AP = %0.2f)' % average_precision)
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.ylim([0.0, 1.05])
+plt.xlim([0.0, 1.0])
+plt.title('Precision-Recall curve')
+plt.legend(loc="lower right")
+plt.show()
+
+#Bar Graph of Classification Report
+report = classification_report(y_test, y_pred, output_dict=True)
+df_report = pd.DataFrame(report).transpose()
+
+df_report.drop(['accuracy'], inplace=True)  # drop the total accuracy since it's a single number
+df_report['support'] = df_report['support'].apply(int)  # convert from float to int
+
+df_report[['precision', 'recall', 'f1-score']].plot(kind='bar')
+plt.title('Classification Report')
+plt.xlabel('Classes')
+plt.ylabel('Scores')
+plt.xticks(rotation=0)
+plt.legend(loc='upper right')
+plt.tight_layout()
+plt.show()

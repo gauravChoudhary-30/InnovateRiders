@@ -45,7 +45,7 @@ const About = ({ setAuthState, setUser }) => {
             className="hover:underline"
             style={{ fontSize: "20px", fontFamily: "Calibri", padding: "10px" }}
           >
-            Home
+            Home 
           </a>
           
           <a
@@ -63,7 +63,7 @@ const About = ({ setAuthState, setUser }) => {
         <div className="max-w-xl mx-auto text-center">
           <h1 className="text-3xl font-bold mb-6">About Us</h1>
           <p className="text-xl text-gray-700 mb-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-            Welcome to our platform! We specialize in sentiment analysis, using advanced machine learning algorithms to understand customer feedback. 
+            Welcome to our platform! We specialize in sentiment analysis, using advanced machine learning algorithms to understand customer feedback And also predictSentiment. 
           </p>
           <p className="text-xl text-gray-700 mb-4 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
             Our mission is to provide insights that help businesses improve customer satisfaction and build better products.

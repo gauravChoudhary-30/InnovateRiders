@@ -23,17 +23,17 @@ const Signup = () => {
   const collectData = async () => {
     try {
       console.log(name, email, password);
-      const responce = await axios.post("http://localhost:8081/register", {
+      const response = await axios.post("http://localhost:8081/register", {
         username: name,
         email: email,
         password: password,
       });
-      console.log(responce);
+      console.log(response);
 
-      if (!responce.ok) {
+      if (!response.ok) {
         throw new Error("failed to fetch");
       }
-      const result = await responce.json();
+      const result = await response.json();
       console.log(result);
       localStorage.setItem("user", JSON.stringify(result.result));
       localStorage.setItem("token", result.auth);

@@ -37,6 +37,7 @@ const Signup = () => {
       console.log(result);
       localStorage.setItem("user", JSON.stringify(result.result));
       localStorage.setItem("token", result.auth);
+      
       navigate("/");
     } catch (error) {
       console.error("Error fetching data :", error);

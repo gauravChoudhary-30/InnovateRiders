@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 
 import User from "../../mongodb/models/user.models.js";
+import Admin from "../../mongodb/models/admin.models.js";
 dotenv.config();
 
 const router = express.Router();
@@ -95,6 +96,70 @@ router.route("/getuser/:userId").get(async (req, res) => {
     res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.log(error, 99);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+//Admin Registration
+router.route("/adminRegistration").post(async (req, res) => {
+  const { name, username, email, uID, password, orgName, phNo } = req.body;
+  console.log(req.body);
+  try {
+    // const existingUser = await User.userExists(username, email);
+    const existingAdmin = await Admin.findOne({
+      $or: [{ email }, { uID }, { username }],
+    });
+    // console.log(existingUser);
+    if (existingAdmin?.email === email || existingAdmin?.uID === uID)
+      return res
+        .status(400)
+        .json({ success: false, message: "User already exists" });
+    if (existingAdmin?.username === username)
+      return res
+        .status(401)
+        .json({ success: false, message: "Username already exists" });
+    const newAdmin = await Admin.create({
+      name,
+      username,
+      email,
+      uID,
+      password,
+      orgName,
+      phNo,
+    });
+    res.status(200).json({ success: true, data: newAdmin });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+router.route("/adminLogin").post(async (req, res) => {
+  const { email, password, uID } = req.body;
+  console.log(req.body);
+  try {
+    const existingAdmin = await Admin.findOne({
+      $or: [{ email }, { uID }],
+    });
+    if (!existingAdmin)
+      return res
+        .status(400)
+        .json({ success: false, message: "User does not exist" });
+    // if (!User.isPasswordCorrect(password))
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      existingAdmin?.password
+    );
+    if (!isPasswordCorrect)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials" });
+    res.status(200).json({
+      success: true,
+      data: existingAdmin,
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ success: false, error: error.message });
   }
 });

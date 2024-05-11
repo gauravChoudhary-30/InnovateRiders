@@ -3,10 +3,17 @@ import { predictSentiment } from "../apis/predictionAPI";
 import logo from "../img/logohackfest.jpg";
 import ReviewCard from "../components/card";
 import ProductCard from "../components/productCard";
-
+import { useNavigation } from "react-router-dom";
 export default function Home() {
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigation();
+
+
+  const signOutHandler = () => {
+    localStorage.removeItem("reviews");
+    navigate("/");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +83,7 @@ export default function Home() {
         <a
           href="#signup"
           className="hover:text-blue"
-          // onClick={signOutHandler}
+          onClick={signOutHandler}
           style={{ fontSize: "20px", fontFamily: "Calibri", padding: "10px" }}
         >
           Sign Out

@@ -7,12 +7,13 @@ import { useNavigation } from "react-router-dom";
 export default function Home() {
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
-  const navigate = useNavigation();
+  // const navigate = useNavigation();
 
 
   const signOutHandler = () => {
     localStorage.removeItem("reviews");
-    navigate("/");
+    // navigate("/");
+    window.location.href = "http://localhost:3000";
   }
 
   const handleSubmit = async (e) => {

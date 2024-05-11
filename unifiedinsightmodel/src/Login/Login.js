@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const Login = () => {
@@ -8,7 +8,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const userId = localStorage.getItem("userId");
   //   console.log("user id:", userId);
@@ -57,8 +57,8 @@ const Login = () => {
       }
 
       localStorage.setItem("userId", JSON.stringify(data.data._id));
-      // navigate("/home");
-      window.location.href = "http://localhost:3000/home";
+      navigate("/home");
+      // window.location.href = "http://localhost:3000/home";
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again later.");
@@ -168,7 +168,7 @@ const Login = () => {
               <button
                 className="ml-2 font-medium text-base text-violet-500"
                 onClick={() => {
-                  // navigate("/signup");
+                  navigate("/signup");
                 }}
               >
                 Sign-up

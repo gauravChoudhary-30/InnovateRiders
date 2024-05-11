@@ -19,7 +19,7 @@ const AdminRegister = () => {
     try {
      const response = await axios.post("http://localhost:8081/adminRegistration", {
         name: name,
-        uName: uName,
+        username: uName,
         email: email,
         uID: uID,
         password: password,

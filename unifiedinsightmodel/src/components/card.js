@@ -6,12 +6,16 @@ const ReviewCard = ({ review }) => {
 
   return (
     <div
-      className="bg-white p-4 border border-gray-300 rounded shadow-md mb-4 transition-transform transform hover:-translate-y-1 hover:scale-105"
-      style={{ width: '100%' }}
+      className="bg-white p-4 border border-gray-300 rounded shadow-md mb-4 transition-transform transform hover:-translate-y-1 hover:scale-105 flex justify-between items-center"
     >
-      <p>{emoji} {review.text}</p> {/* Emoji with review text */}
+      <div>
+      <p>Text: {review.text}</p>
       <p>Sentiment: {review.sentiment.sentiment}</p>
-      <p>Score Rank: {review.sentiment.score_rank}</p>
+      </div>
+      <div className='text-4xl'>
+        <h1>{emoji}</h1>
+      </div>
+      
     </div>
   );
 };

@@ -50,9 +50,9 @@ const AdminLogin = () => {
         alert(data.message);
         return;
       }
-      localStorage.setItem("userId", JSON.stringify(data.data._id));
+      localStorage.setItem("userData", JSON.stringify(data.data));
       alert("successful login");
-      navigate("/home");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again later.");

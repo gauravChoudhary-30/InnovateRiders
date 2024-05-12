@@ -5,7 +5,7 @@ import Signup from './Signup/Signup.js';
 import Home from "./page/Home.js"
 import AdminLogin from './Login/adminLogin.js';
 import AdminRegister from './Signup/adminRegister.js';
-
+import Dashboard from './page/Dashboard.js';
 function App() {
   return (
     <Router>
@@ -15,6 +15,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/adminRegister" element={<AdminRegister />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
       </Routes>
     </Router>

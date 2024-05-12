@@ -53,7 +53,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div className=" flex space-x-4">
+        <div  >
           <a
             href="#home"
             className="hover:underline px-5 text-xl font-calibri active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out"
@@ -76,7 +76,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="bg-[#F1EFE6] flex flex-col">
+      <div className="bg-[#F1EFE6] flex flex-col flex-grow">
         <div className="bg-white flex flex-row items-center p-4">
           <h2 className="text-lg font-semibold">Purchased Items</h2>
           <img

@@ -3,6 +3,7 @@ import logo from "../img/logohackfest.jpg";
 import usericon from "../img/user.png";
 import losslogo from "../img/loss.png";
 import downarrow from "../img/arrow-down-sign-to-navigate.png";
+import piechart from "../img/piechart.PNG";
 
 export default function Dashboard() {
     const [profileVisible, setProfileVisible] = useState(false);
@@ -123,7 +124,11 @@ export default function Dashboard() {
             <hr className="w-full border-t-2 border-gray-300 mb-4" />
             <h1 className="text-3xl font-bold text-gray-800">948</h1>
           </div>
+         
         </div>
+        <div className="flex justify-center">
+            <img src={piechart} alt="piechart" className="w-96 h-72"/>
+          </div>
       </div>
       <footer className="text-white p-4 text-center bg-violet-500">
         © 2024 Unified Customer Insights.

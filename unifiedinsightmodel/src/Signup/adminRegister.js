@@ -98,7 +98,7 @@ const AdminRegister = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="text-lg font-medium text-gray-800">
-                    UserID
+                    BusinessID
                   </label>
                   <input
                     className="w-full border-2 border-gray-200 rounded-xl p-4 mt-1 bg-gray-50 focus:outline-none focus:border-violet-500"

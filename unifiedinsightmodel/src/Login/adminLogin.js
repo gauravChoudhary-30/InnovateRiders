@@ -108,7 +108,7 @@ const AdminLogin = () => {
             </div>
             <div className="flex flex-col mt-4">
               <label className="text-lg font-medium text-gray-800">
-                UniqueID
+                BusinessID
               </label>
               <input
                 value={uniqueID}

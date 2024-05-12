@@ -11,6 +11,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import xgboost as xgb
 from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, average_precision_score
 import seaborn as sns
+from churnprediction import predict_churn
 
 app = Flask(__name__)
 CORS(app) 
@@ -132,14 +133,19 @@ def predict_sentiment():
     })
     
 @app.route('/predict_churn', methods=['POST'])
-def predict_churn():
+def predict_churn_endpoint():
     try:
-        json_data = request.json
-        data = pd.DataFrame(json_data)
-        prediction = model.predict(data)
-        return jsonify({'prediction': prediction.tolist()})
+        data = request.json
+        accuracy, classification_rep, conf_matrix = predict_churn(data)
+        return jsonify({
+            'accuracy': accuracy,
+            'classification_report': classification_rep,
+            'confusion_matrix': conf_matrix.tolist()
+        })
     except Exception as e:
-        return jsonify({'error': str(e)})
+        # Handle any errors
+        return jsonify({'error': str(e)}), 500
+        
 
 if __name__ == '__main__':
     app.run(debug=True)

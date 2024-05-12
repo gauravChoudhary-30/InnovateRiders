@@ -103,7 +103,7 @@ export default function Dashboard() {
               <p className="text-sm font-semibold text-xl">New Customers</p>
             </div>
             <hr className="w-full border-t-2 border-gray-300 mb-4" />
-            <h1 className="text-3xl font-bold text-gray-800">5631</h1>
+            <h1 className="text-3xl font-bold text-gray-800">15</h1>
           </div>
 
           <div className=" mb-4 p-4 border border-gray-300 shadow-md bg-white flex flex-col items-center">
@@ -112,7 +112,7 @@ export default function Dashboard() {
               <p className="text-sm font-semibold text-xl">Loyal Customers</p>
             </div>
             <hr className="w-full border-t-2 border-gray-300 mb-4" />
-            <h1 className="text-3xl font-bold text-gray-800">5631</h1>
+            <h1 className="text-3xl font-bold text-gray-800">4682</h1>
           </div>
 
           <div className=" mb-4 p-4 border border-gray-300 shadow-md bg-white flex flex-col items-center">
@@ -121,7 +121,7 @@ export default function Dashboard() {
               <p className="text-sm font-semibold text-xl">Churn Customers</p>
             </div>
             <hr className="w-full border-t-2 border-gray-300 mb-4" />
-            <h1 className="text-3xl font-bold text-gray-800">5631</h1>
+            <h1 className="text-3xl font-bold text-gray-800">948</h1>
           </div>
         </div>
       </div>

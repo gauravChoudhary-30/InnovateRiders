@@ -19,4 +19,28 @@ const predictSentiment = async (text) => {
   }
 }
 
-export { predictSentiment };
+const predictChurn = async (data) => {
+  try {
+      const response = await fetch('/predict_churn', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+          throw new Error('Failed to fetch predictions');
+      }
+
+      const result = await response.json();
+      return result.predictions; 
+
+  } catch (error) {
+      console.error('Error predicting churn:', error);
+      return null; 
+  }
+};
+
+
+export { predictSentiment , predictChurn };
